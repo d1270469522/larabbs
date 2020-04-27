@@ -11,6 +11,8 @@ class VerificationCodesController extends Controller
 {
     public function store(VerificationCodeRequest $request, EasySms $easySms)
     {
+        $phone = $request->phone;
+
         if (!app()->environment('production')) {
             $code = '1234';
         } else {
@@ -32,6 +34,7 @@ class VerificationCodesController extends Controller
 
         $key = 'verificationCode_'.Str::random(15);
         $expiredAt = now()->addMinutes(5);
+
         // 缓存验证码 5 分钟过期。
         \Cache::put($key, ['phone' => $phone, 'code' => $code], $expiredAt);
 
