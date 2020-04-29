@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Auth;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
-class User extends Authenticatable implements MustVerifyEmailContract
+class User extends Authenticatable implements MustVerifyEmailContract, JWTSubject
 {
     use HasRoles;
 
@@ -106,6 +107,22 @@ class User extends Authenticatable implements MustVerifyEmailContract
         }
 
         $this->attributes['avatar'] = $path;
+    }
+
+    /**
+     * [getJWTIdentifier 返回了 User 的 id]
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * [getJWTCustomClaims 是我们需要额外在 JWT 载荷中增加的自定义内容，这里返回空数组]
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 
 }
