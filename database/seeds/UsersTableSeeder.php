@@ -21,7 +21,6 @@ class UsersTableSeeder extends Seeder
             'https://cdn.learnku.com/uploads/images/201710/14/1/Lhd1SHqu86.png',
             'https://cdn.learnku.com/uploads/images/201710/14/1/LOnMrqbHJn.png',
             'https://cdn.learnku.com/uploads/images/201710/14/1/xAuDMxteQy.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/ZqM7iaP4CR.png',
             'https://cdn.learnku.com/uploads/images/201710/14/1/NDnzMutoxX.png',
         ];
 
@@ -55,6 +54,19 @@ class UsersTableSeeder extends Seeder
 
         // 将 2 号用户指派为『管理员』
         $user = User::find(2);
+        $user->name = 'user2';
+        $user->email = 'user2@qq.com';
+        $user->password = bcrypt('11111111');
+        $user->avatar = 'https://cdn.learnku.com/uploads/images/201710/14/1/ZqM7iaP4CR.png';
+        $user->save();
         $user->assignRole('Maintainer');
+
+        // 将 2 号用户指派为『管理员』
+        $user = User::find(3);
+        $user->name = 'user3';
+        $user->email = 'user3@qq.com';
+        $user->password = bcrypt('11111111');
+        $user->avatar = 'https://cdn.learnku.com/uploads/images/201710/14/1/ZqM7iaP4CR.png';
+        $user->save();
     }
 }
