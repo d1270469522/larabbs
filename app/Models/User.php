@@ -12,6 +12,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
 class User extends Authenticatable implements MustVerifyEmailContract, JWTSubject
 {
+    use Traits\LastActivedAtHelper;
+
+    use Traits\ActiveUserHelper;
+
     use HasRoles;
 
     use MustVerifyEmailTrait;
